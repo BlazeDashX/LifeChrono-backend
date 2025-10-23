@@ -8,8 +8,42 @@ datasource db {
 }
 
 model User {
-  id        String   @id @default(uuid())
-  email     String   @unique
-  name      String?
-  createdAt DateTime @default(now())
+  id             String        @id @default(uuid())
+  email          String        @unique
+  name           String?
+  password       String
+  theme          String        @default("light") // light or dark
+  categories     Category[]
+  activityLogs   ActivityLog[]
+  createdAt      DateTime      @default(now())
+}
+
+model Category {
+  id          String        @id @default(uuid())
+  name        String
+  color       String?
+  emoji       String?
+  type        CategoryType
+  user        User          @relation(fields: [userId], references: [id])
+  userId      String
+  activityLogs ActivityLog[]
+}
+
+model ActivityLog {
+  id          String      @id @default(uuid())
+  startTime   DateTime
+  endTime     DateTime
+  notes       String?
+  category    Category    @relation(fields: [categoryId], references: [id])
+  categoryId  String
+  user        User        @relation(fields: [userId], references: [id])
+  userId      String
+  createdAt   DateTime    @default(now())
+}
+
+enum CategoryType {
+  PRODUCTIVE
+  RESTORATION
+  LEISURE
+  NEUTRAL
 }
