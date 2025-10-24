@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-unsafe-call */
 import { IsEnum, IsNotEmpty, IsOptional, IsString } from 'class-validator';
 import { CategoryType } from '@prisma/client';
 

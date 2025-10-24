@@ -23,9 +23,9 @@ model Category {
   name        String
   color       String?
   emoji       String?
-  type        CategoryType
+  type        CategoryType  // required
   user        User          @relation(fields: [userId], references: [id])
-  userId      String
+  userId      String        // required
   activityLogs ActivityLog[]
 }
 
